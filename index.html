@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
 <title>Login - एक बगिया माँ के नाम डैशबोर्ड</title>
 <style>
 *{box-sizing:border-box}
@@ -37,7 +39,8 @@ button:hover{filter:brightness(.98)}
   </form>
 </div>
 <script>
-if (sessionStorage.getItem('ekBagiyaAuth') === 'ok') window.location.replace('dashboard.html');
+// Always show login page when site root is opened.
+// Dashboard page remains protected by session login.
 function login(e){
   e.preventDefault();
   const u=document.getElementById('user').value.trim();
