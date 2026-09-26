@@ -164,4 +164,60 @@ function makePDF(){renderAll();setTimeout(()=>window.print(),150)}
 function logout(){sessionStorage.removeItem('ekBagiyaAuth');window.location.replace('index.html')}
 function downloadCSV(){let rows=baseRows(),cols=currentView==='progress'?progressCols:rankCols;let csv=[cols.join(',')].concat(rows.map(r=>cols.map(c=>'"'+String(r[c]??'').replace(/"/g,'""')+'"').join(','))).join('\n');let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=currentView==='progress'?'engineer_progress_09_09_2026.csv':'upyantri_dashboard.csv';a.click()}
 refreshFilters();renderAll();
-</script></body></html>
+</script>
+<script id="SRDM_STANDALONE_MORNING_SATNA_MAIHAR_20260926">
+(function(){
+  function n(v){const x=Number(v);return Number.isFinite(x)?x:0}
+  function clean(v){return String(v==null?'':v).trim()}
+  const satnaMorning={
+    MAJHGAWAN:{target:100,works:101,san:209.67,ongoing:85,wageT:70.16,wageB:7.46,matT:99.8,matB:15.26},
+    NAGOD:{target:100,works:101,san:195.43,ongoing:99,wageT:63.86,wageB:10.28,matT:95.07,matB:20.71},
+    'RAMPUR BAGHELAN':{target:100,works:96,san:185.42,ongoing:71,wageT:64.34,wageB:3.22,matT:86.51,matB:10.42},
+    SOHAWAL:{target:100,works:103,san:173.06,ongoing:94,wageT:56.78,wageB:3.73,matT:84.03,matB:6.58},
+    UNCHAHARA:{target:100,works:105,san:182.08,ongoing:95,wageT:62.18,wageB:3.81,matT:86.92,matB:24.08}
+  };
+  function allRows(){try{return (typeof WORK_DETAILS!=='undefined'&&Array.isArray(WORK_DETAILS))?WORK_DETAILS:[]}catch(e){return []}}
+  function agg(block){
+    if(satnaMorning[block])return {j:block,...satnaMorning[block]};
+    const rows=allRows().filter(r=>clean(r.Janpad).toUpperCase()===block);
+    const a={j:block,target:100,works:0,san:0,ongoing:0,wageT:0,wageB:0,matT:0,matB:0};
+    for(const r of rows){
+      a.works++;
+      a.san+=n(r['Sanction Amount Total'])/100000;
+      const st=clean(r['Work Status']).toLowerCase();
+      if(st==='ongoing'||!st)a.ongoing++;
+      a.wageT+=n(r['Wage Sanctioned'])/100000;
+      a.wageB+=n(r['Amount Booked Since Inception Wages']??r['Overall Booked Wages']??r['Total Wage expenditure'])/100000;
+      a.matT+=n(r['Material Sanctioned'])/100000;
+      a.matB+=n(r['Amount Booked Since Inception Material']??r['Overall Booked Material']??r['Total material expenditure'])/100000;
+    }
+    return a;
+  }
+  function total(list,label){
+    const t={j:label,target:0,works:0,san:0,ongoing:0,wageT:0,wageB:0,matT:0,matB:0};
+    for(const a of list)for(const k of ['target','works','san','ongoing','wageT','wageB','matT','matB'])t[k]+=n(a[k]);
+    return t;
+  }
+  function row(a,cls=''){
+    const wp=a.wageT?100*a.wageB/a.wageT:0,mp=a.matT?100*a.matB/a.matT:0,tc=a.wageT+a.matT,te=a.wageB+a.matB,tp=tc?100*te/tc:0;
+    const f=v=>Number(v||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
+    return '<tr class="'+cls+'"><td>'+a.j+'</td><td>'+a.target+'</td><td>'+a.works+'</td><td>'+f(a.san)+'</td><td>'+a.ongoing+'</td><td>'+f(a.wageT)+'</td><td>'+f(a.wageB)+'</td><td class="yellow">'+wp.toFixed(2)+'%</td><td>'+f(a.matT)+'</td><td>'+f(a.matB)+'</td><td class="yellow">'+mp.toFixed(2)+'%</td><td>'+f(tc)+'</td><td>'+f(te)+'</td><td>'+tp.toFixed(2)+'%</td></tr>';
+  }
+  function renderMorning(){
+    const box=document.getElementById('ekMorningBlock');if(!box)return;
+    const tbl=box.querySelector('.ek-morning-table');if(!tbl)return;
+    const z=document.getElementById('zila')?.value||'All';
+    const mh=['AMARPATAN','MAIHAR','RAMNAGAR'].map(agg);
+    const st=['MAJHGAWAN','NAGOD','RAMPUR BAGHELAN','SOHAWAL','UNCHAHARA'].map(agg);
+    let h='<thead><tr><th rowspan="2">Block</th><th>Block</th><th>Sanctioned</th><th>Sanctioned</th><th>Ongoing</th><th>Target<br>Wage</th><th>Wage</th><th rowspan="2" class="green-head">%</th><th>Target<br>Material</th><th>Material</th><th rowspan="2">%</th><th rowspan="2">Total<br>Cast</th><th rowspan="2">Total<br>Exp</th><th rowspan="2">%</th></tr><tr><th>Target</th><th>Works</th><th>Cost</th><th>Works</th><th>Cost</th><th>Booked</th><th class="green-head">Exp Wage</th><th>Cost</th><th>Booked</th><th>Mat Exp</th><th>Total<br>Exp</th></tr></thead><tbody>';
+    if(z==='MAIHAR'){for(const a of mh)h+=row(a);h+=row(total(mh,'TOTAL'),'total-row');}
+    else if(z==='SATNA'){for(const a of st)h+=row(a);h+=row(total(st,'TOTAL'),'total-row');}
+    else{for(const a of mh)h+=row(a);h+=row(total(mh,'MAIHAR TOTAL'),'total-row');for(const a of st)h+=row(a);h+=row(total(st,'SATNA TOTAL'),'total-row');}
+    h+='</tbody>';tbl.innerHTML=h;
+  }
+  window.addEventListener('load',renderMorning,{once:true});
+  document.getElementById('zila')?.addEventListener('change',()=>setTimeout(renderMorning,0));
+  setTimeout(renderMorning,0);
+})();
+</script>
+</body></html>
