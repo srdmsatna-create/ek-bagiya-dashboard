@@ -55,6 +55,26 @@
   #detail .kpi{min-height:0!important;padding:1.5mm!important}.kpi b{font-size:9pt!important}.kpi span{font-size:5.5pt!important}
 }
 
+
+/* SRDM_EK_BLOCK_TABLE_SCREENSHOT_FORMAT_20260926 */
+.ek-morning-block{margin:0 0 14px;background:#fff}
+.ek-morning-title{margin:0 18px 24px;background:#fff600;color:#0066cc;text-align:center;font-size:28px;font-weight:950;font-style:italic;text-decoration:underline;padding:5px 12px;line-height:1.25}
+.ek-morning-wrap{overflow-x:auto}
+.ek-morning-table{width:100%;min-width:1120px;border-collapse:collapse;table-layout:fixed;background:#fff}
+.ek-morning-table th,.ek-morning-table td{border:1px solid #222;text-align:center;vertical-align:middle;padding:8px 4px;font-size:16px;font-weight:800;background:#fff;color:#222}
+.ek-morning-table th{font-family:Georgia,"Times New Roman",serif;font-weight:500}
+.ek-morning-table th:first-child{font-family:inherit;color:#08702c;font-weight:900}
+.ek-morning-table td:first-child{text-align:left;font-weight:950;background:#f4f4f4}
+.ek-morning-table .green-head{background:#92d34f!important;font-weight:900}
+.ek-morning-table .yellow{background:#fff600!important;font-weight:950}
+.ek-morning-table .total-row td{font-weight:950}
+.ek-morning-table .total-row td:first-child{background:#fff600!important;text-align:center}
+@media print{
+ .ek-morning-title{font-size:15pt!important;margin:0 0 4mm!important}
+ .ek-morning-table{min-width:0!important;width:100%!important}
+ .ek-morning-table th,.ek-morning-table td{font-size:7pt!important;padding:1mm .45mm!important}
+}
+
 </style>
 <script>(function(){if(sessionStorage.getItem('ekBagiyaAuth')!=='ok'){window.location.replace('index.html')}})();</script></head><body>
 <div class="govbar"><span><b>मध्यप्रदेश शासन</b> · पंचायत एवं ग्रामीण विकास विभाग</span><span>District Monitoring Dashboard · SATNA / MAIHAR</span></div>
@@ -72,6 +92,36 @@
 <div class="side-note"><b>Score logic unchanged.</b><br>Work /25 + Wage /50 + Material /25 = Overall /100. Expenditure filter पर उसी पुरानी calculation के अनुसार score पुनर्गणित होता है।</div></aside>
 <main class="content">
 <div class="formulaBox"><div class="formulaTitle">अंक गणना सूत्र · Existing Site Logic</div><div class="formulaGrid"><div><b>Work /25</b>Current FY Mandays &gt; 0 Works ÷ Total Works × 25</div><div><b>Wage /50</b>Total Wage Booked ÷ Sanctioned Wage × 50</div><div><b>Material /25</b>Total Material Booked ÷ Sanctioned Material × 25</div><div><b>Overall /100</b>Work + Wage + Material score</div><div><b>Remaining Wage</b>Sanctioned Wage − Wage Booked</div><div><b>Remaining Material</b>Sanctioned Material − Material Booked</div></div><div class="formulaNote">2025-26 = NREGA previous period · 2026-27 = VBGRAMG current FY · New payment/Nishfal/material indicators are monitoring fields only and do not change the score.</div></div>
+
+<div id="ekMorningBlock" class="section-card ek-morning-block">
+  <div class="ek-morning-title">एक बगिया माँ के नाम-ब्लॉक वार स्थिति (Amount in Lakh) 14/07/2026 स्टेट रैंक -42</div>
+  <div class="ek-morning-wrap">
+    <table class="ek-morning-table">
+      <thead>
+        <tr>
+          <th rowspan="2">Block</th>
+          <th>Block</th><th>Sanctioned</th><th>Sanctioned</th><th>Ongoing</th>
+          <th>Target<br>Wage</th><th>Wage</th><th rowspan="2" class="green-head">%</th>
+          <th>Target<br>Material</th><th>Material</th><th rowspan="2">%</th>
+          <th rowspan="2">Total<br>Cast</th><th rowspan="2">Total<br>Exp</th><th rowspan="2">%</th>
+        </tr>
+        <tr>
+          <th>Target</th><th>Works</th><th>Cost</th><th>Works</th>
+          <th>Cost</th><th>Booked</th><th class="green-head">Exp Wage</th>
+          <th>Cost</th><th>Booked</th><th>Mat Exp</th><th>Total<br>Exp</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>MAJHGANWA</td><td>100</td><td>101</td><td>209.67</td><td>85</td><td>70.16</td><td>7.46</td><td class="yellow">10.63%</td><td>99.8</td><td>15.26</td><td class="yellow">15.29%</td><td>169.96</td><td>22.72</td><td>13.37%</td></tr>
+        <tr><td>NAGOD</td><td>100</td><td>101</td><td>195.43</td><td>99</td><td>63.86</td><td>10.28</td><td class="yellow">16.10%</td><td>95.07</td><td>20.71</td><td class="yellow">21.78%</td><td>158.93</td><td>30.99</td><td>19.50%</td></tr>
+        <tr><td>RAMPUR<br>BAGHELAN</td><td>100</td><td>96</td><td>185.42</td><td>71</td><td>64.34</td><td>3.22</td><td class="yellow">5.00%</td><td>86.51</td><td>10.42</td><td class="yellow">12.04%</td><td>150.85</td><td>13.64</td><td>9.04%</td></tr>
+        <tr><td>SOHAWAL</td><td>100</td><td>103</td><td>173.06</td><td>94</td><td>56.78</td><td>3.73</td><td class="yellow">6.57%</td><td>84.03</td><td>6.58</td><td class="yellow">7.83%</td><td>140.81</td><td>10.31</td><td>7.32%</td></tr>
+        <tr><td>UCHEHARA</td><td>100</td><td>105</td><td>182.08</td><td>95</td><td>62.18</td><td>3.81</td><td class="yellow">6.13%</td><td>86.92</td><td>24.08</td><td class="yellow">27.70%</td><td>149.1</td><td>27.89</td><td>18.71%</td></tr>
+        <tr class="total-row"><td>TOTAL</td><td>500</td><td>506</td><td>945.66</td><td>444</td><td>317.32</td><td>28.5</td><td class="yellow">8.98%</td><td>257.46</td><td>41.08</td><td class="yellow">15.96%</td><td>574.78</td><td>69.58</td><td>12.11%</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 <div id="rankView" class="section-card"><div class="section-title">उपयंत्री-वार लक्ष्य, उपलब्धि एवं रैंकिंग</div><div class="tablewrap"><table id="rankTable"></table></div></div>
 <div id="dashView" class="hidden"><div class="notice">किसी भी उपयंत्री कार्ड पर क्लिक करके उसका विस्तृत Score Card और work-wise details देखें। फिल्टर cards, ranking और details पर एक साथ लागू होते हैं।</div><div class="section-card"><div class="section-title">उपयंत्री Performance Cards</div><div id="cards" class="cards"></div></div><div id="detail"></div></div>
 <div id="progressView" class="hidden section-card"><div class="section-title">आज की प्रगति 09.09 · Official Online Work Progress</div><div class="notice" style="margin:12px">Sanction, booked wage/material और mandays आज के online MIS से अपडेट हैं; score/ranking formula अपरिवर्तित है।</div><div class="tablewrap"><table id="progressTable"></table></div></div>
